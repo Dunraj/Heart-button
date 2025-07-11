@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Message</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff0f5;
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #heart {
+      font-size: 100px;
+      cursor: pointer;
+      margin-top: 100px;
+      transition: transform 0.3s ease;
+    }
+
+    #heart:hover {
+      transform: scale(1.2);
+    }
+
+    .fadeIn {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .fadeOut {
+      animation: fadeOut 0.8s ease forwards;
+    }
+
+    .slideInUp {
+      animation: slideInUp 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; transform: scale(0.8); }
+    }
+
+    @keyframes slideInUp {
+      0% { opacity: 0; transform: translateY(100px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    #message, #moreBtn, #moreMessage {
+      display: none;
+      margin-top: 30px;
+      font-size: 24px;
+      padding: 0 20px;
+    }
+
+    #moreBtn {
+      margin-top: 40px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .flower {
+      position: fixed;
+      top: -50px;
+      font-size: 30px;
+      animation: fall 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="heart">❤️</div>
+
+  <div id="message"></div>
+
+  <button id="moreBtn">More</button>
+
+  <div id="moreMessage"></div>
+
+  <script>
+    const heart = document.getElementById("heart");
+    const message = document.getElementById("message");
+    const moreBtn = document.getElementById("moreBtn");
+    const moreMessage = document.getElementById("moreMessage");
+
+    heart.addEventListener("click", () => {
+      heart.style.display = "none"; // hide heart
+
+      // Show first message with animation
+      message.innerHTML = `I LOVE YOU DEAR,<br>
+        YOU ARE MY EVERYTHING,<br>
+        EVERYTHING IN THIS WORLD REMINDS ME OF YOU.<br>
+        <b>YOURS DUNRAJ.</b>`;
+      message.style.display = "block";
+      message.classList.add("fadeIn");
+
+      moreBtn.style.display = "inline-block";
+      startFlowers();
+    });
+
+    moreBtn.addEventListener("click", () => {
+      // Fade out first message
+      message.classList.remove("fadeIn");
+      message.classList.add("fadeOut");
+
+      // Wait for fade out to finish before hiding
+      setTimeout(() => {
+        message.style.display = "none";
+        moreBtn.style.display = "none";
+
+        // Show second message with slide animation
+        moreMessage.innerHTML = `<b>AAP HAMARI JAAN HAI JII B_A_A_A.</b>`;
+        moreMessage.style.display = "block";
+        moreMessage.classList.add("slideInUp");
+      }, 800);
+    });
+
+    function startFlowers() {
+      setInterval(() => {
+        const flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        flower.textContent = "🌸";
+        document.body.appendChild(flower);
+
+        setTimeout(() => flower.remove(), 6000);
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
